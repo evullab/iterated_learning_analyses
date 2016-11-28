@@ -1,0 +1,10 @@
+function [beta,beta_1,sd_beta]=updateSlopeLine(xy,line_std)
+x=(xy(:,1)-mean(xy(:,1)))';
+y=(xy(:,2)-mean(xy(:,2)))';
+beta_1=(((x*x')^-1)*x)*y';
+% precMat=1/(sum(((beta_1*x)-y).^2));
+% sd_beta=1/sqrt((precMat+(1/line_std^2))*length(x));
+% sd_beta=1/sqrt((precMat*length(x)));
+% sd_beta=sqrt(sum(((beta_1*x)-y).^2)/(length(x)-2));
+sd_beta=sqrt(1/sum(((beta_1*x)-y).^2));
+beta=normrnd(beta_1,sd_beta);
